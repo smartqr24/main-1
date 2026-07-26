@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autumn — ម៉ឺនុយអាហារ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@400;500;600;700&family=Fraunces:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --card-bg:#ffffff;
+    --ink:#1d1d1f;
+    --ink-soft:#6e6e73;
+    --hairline:#e8e8ed;
+    --pill-bg:#f5f5f7;
+    --img-bg:#f0f0f0;
+    --accent:#8a5a34;
+    --accent-tint:#f4ece3;
+    --radius-card:22px;
+    --shadow-card:0 1px 2px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.06);
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ scroll-behavior:auto; } /* instant jump — no animated scrolling */
+
+  html,body{
+    margin:0;
+    padding:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter','Noto Sans Khmer',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .khmer{ font-family:'Noto Sans Khmer','Inter',-apple-system,sans-serif; }
+
+  /* ---------- Header ---------- */
+  header{
+    padding:96px 24px 40px;
+    text-align:center;
+  }
+
+  header .wordmark{
+    margin:0;
+    font-family:'Fraunces','Noto Sans Khmer',serif;
+    font-weight:600;
+    font-size:56px;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+
+  header .sub{
+    margin:14px auto 0;
+    max-width:480px;
+    font-size:17px;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+
+  /* ---------- Category nav ---------- */
+  nav.cat-nav{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:rgba(255,255,255,0.92);
+    backdrop-filter:saturate(180%) blur(12px);
+    border-bottom:1px solid var(--hairline);
+    padding:14px 24px;
+  }
+
+  .cat-nav-inner{
+    max-width:1180px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+  }
+
+  .cat-pill{
+    display:inline-block;
+    padding:9px 18px;
+    border-radius:100px;
+    background:var(--pill-bg);
+    color:var(--ink);
+    font-size:14px;
+    font-weight:500;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+
+  .cat-pill:hover{
+    background:var(--accent-tint);
+    color:var(--accent);
+  }
+
+  /* ---------- Sections ---------- */
+  main{
+    max-width:1180px;
+    margin:0 auto;
+    padding:8px 24px 40px;
+  }
+
+  section.category{
+    padding:64px 0 16px;
+    scroll-margin-top:76px;
+  }
+
+  section.category + section.category{
+    border-top:1px solid var(--hairline);
+  }
+
+  .cat-heading{
+    margin:0 0 40px;
+    text-align:center;
+  }
+
+  .cat-heading .eyebrow{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:10px;
+  }
+
+  .cat-heading h2{
+    margin:0;
+    font-size:28px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(250px, 1fr));
+    gap:26px;
+  }
+
+  /* ---------- Cards ---------- */
+  .card{
+    background:var(--card-bg);
+    border-radius:var(--radius-card);
+    box-shadow:var(--shadow-card);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .card-image{
+    position:relative;
+    width:100%;
+    aspect-ratio:4/3;
+    background:var(--img-bg);
+    overflow:hidden;
+  }
+
+  .card-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  .card-image .placeholder{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#c7c7cc;
+  }
+
+  .card-image .placeholder svg{ width:38px; height:38px; }
+
+  .card-body{
+    padding:18px 20px 20px;
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:14px;
+  }
+
+  .card-name{
+    margin:0;
+    font-size:16px;
+    font-weight:600;
+    line-height:1.5;
+    color:var(--ink);
+  }
+
+  .new-tag{
+    display:inline-block;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.03em;
+    color:var(--accent);
+    background:var(--accent-tint);
+    padding:2px 7px;
+    border-radius:6px;
+    margin-right:7px;
+    vertical-align:middle;
+  }
+
+  .card-price{
+    flex:0 0 auto;
+    font-family:'Inter',sans-serif;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--ink);
+    background:var(--pill-bg);
+    padding:6px 12px;
+    border-radius:100px;
+    white-space:nowrap;
+  }
+
+  footer{
+    text-align:center;
+    padding:40px 24px 90px;
+    color:var(--ink-soft);
+    font-size:13px;
+    border-top:1px solid var(--hairline);
+    margin-top:20px;
+  }
+
+  @media (max-width:600px){
+      header{ padding:64px 20px 32px; }
+      header .wordmark{ font-size:40px; }
+      section.category{ padding:44px 0 8px; }
+      .cat-heading h2{ font-size:22px; }
+      .grid{ grid-template-columns:repeat(auto-fill, minmax(145px,1fr)); gap:14px; }
+      .card-body{
+        padding:12px 14px 16px;
+        flex-direction:column;
+        align-items:center;      /* was flex-start */
+        text-align:center;       /* centers the name text */
+        gap:8px;
+      }
+      .card-name{ font-size:14px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="cat-nav">
+  <div class="cat-nav-inner" id="cat-nav-inner"></div>
+</nav>
+
+<main id="menu-main"></main>
+
+<footer>
+  <p>Develop by <b>CamboQR</b></p>
+</footer>
+
+
+<script>
+  // Each dish: { name, price, image, isNew }
+  // "image" is the filename inside the /asset folder — drop a photo there
+  // and set the filename here to replace the placeholder icon automatically.
+  const menu = [
+    {
+      category: "ម្ហូបចម្បង",
+      categoryEn: "Main Courses",
+      items: [
+        { name: "ស្ប៉ាហ្គេទី (គ្រឿងសមុទ្រ / សាច់គោចិញ្ច្រាំ)", price: "5.5", image: "spaghetti-seafood.png" },
+        { name: "បាយឆា (សាច់គោ / បង្គា)", price: "3.5 / 6.0", image: "fried-rice.png" },
+        { name: "មីឆា (សាច់គោ / បង្គា)", price: "3.5 / 6.0", image: "mi-cha-seafood.jpg" },
+        { name: "បាយឆាគីមឈី", price: "3.5 / 6.0", image: "kimchi-fried-rice.jpeg" },
+        { name: "ភីហ្សា (ហាវ៉ៃ / គ្រឿងសមុទ្រ / គេបភើរ៉ូនី)", price: "7.9", image: "pizza-hawaii.webp" },
+        { name: "ស្ប៉ាហ្គេទី កាបូណារ៉ា", price: "5.0", image: "spaghetti-carbonara.jpeg" },
+        { name: "ឆ្អឹងជំនីលីងអំបិលម្រេច", price: "4.5", isNew: true, image: "rip-beef-season.png" },
+        { name: "បាយឡុកឡាក់", price: "5.0", image: "lok-lak-rice.png" },
+        // { name: "បាយឆាអំបិល", price: "3.0", isNew: true },
+        // { name: "បាយឆាសាច់ក្រក", price: "3.5" },
+        // { name: "ងាវឆាអំពិលទុំ", price: "5.0" },
+        // { name: "ក្តាមអប់មីសួរ", price: "6.0" },
+        // { name: "ក្តាមឆាពងទាប្រៃ", price: "6.0", isNew: true },
+        // { name: "មឹកឆាពងទាប្រៃ", price: "6.0", isNew: true },
+        // { name: "បង្គាឆាពងទាប្រៃ", price: "4.5", isNew: true },
+        // { name: "ស៊ុបគីមឈី", price: "5.5", isNew: true },
+        // { name: "ស៊ុបជូរហិរគ្រឿងសមុទ្រ", price: "5.5", isNew: true },
+      ]
+    },
+    {
+      category: "ចៀន / បំពង",
+      categoryEn: "Fried / Deep Fried",
+      items: [
+        { name: "ពោតឆា", price: "3.5", image: "fried-corn.png" },
+        { name: "គោបំពងល្ង", price: "4.5", image: "ko_fried_lagor.jpg" },
+        { name: "ប្រហិតបំពងខ្ទឹមសរ", price: "3.0", image: "meatball-galic.png" },
+        { name: "សរសៃកែងមាន់", price: "3.5", image: "sor-sei-kheng-chicken.jpeg" },
+        { name: "ស្លាបមាន់បំពង", price: "3.5", image: "chicken-fried.jpg" },
+        { name: "ស្លាបមាន់ហិរ", price: "3.5", image: "spicy-wing.png" },
+        { name: "ប្រហិតសាច់ត្រីខ្មែរ", price: "3.5", image: "fish-meatball-khmer.png" },
+        // { name: "កំពិសបំពងល្ង", price: "3.5" },
+        // { name: "ឆ្អឹងជំនីជ្រូកបំពងខ្ទឹមសរ", price: "3.5" },
+        { name: "ងាវលីងអំបិលម្ទេស", price: "4.5", image: "geav-off.png" },
+        // { name: "ជើងមាន់បំពងខ្ទឹមសរ", price: "3.5" },
+        // { name: "មាន់រំលីងចេកខ្ចី", price: "3.5" },
+        // { name: "បង្គាបំពងខ្ទឹមសរ", price: "4.5" },
+        // { name: "បង្គាបំពងម៉េយ៉ូនេស", price: "4.5" },
+        // { name: "មាន់បំពងគល់ស្លឹកគ្រៃ", price: "3.5" },
+        // { name: "កង្កែបបំពងស្រួយ", price: "4.5" },
+        // { name: "ផ្សិតបំពង", price: "3.5" },
+        // { name: "កង្កែបប៉ារ៉ា", price: "4.5" },
+        // { name: "មឹកបំពងសាច់ជ្រូក", price: "4.5" },
+        // { name: "ព្រុយត្រីបំពង", price: "4.0" },
+        // { name: "កង្កែបឆាក្តៅ", price: "5.0" },
+        // { name: "ខ្យងប៉ារ៉ាលីងអំបិលម្ទេស", price: "6.0", isNew: true },
+        // { name: "កង្កែបឆាម្នាស់ជ្រក់", price: "5.0", isNew: true },
+        // { name: "សរសៃកែងលីងម្ទេសក្រៀម", price: "4.5", isNew: true },
+      ]
+    },
+    {
+      category: "សាឡាត់ និង អាហារសមុទ្រ",
+      categoryEn: "Salad & Seafood",
+      items: [
+        { name: "ភ្លា (បង្គា / ងាវ / សាលម៉ុន / សាច់គោ / ត្រី)", price: "4.0 – 8.0", image: "plea.png" },
+        { name: "បង្គាកោះកុង", price: "4.75", image: "shrimp-koh-kong.png" },
+        { name: "ញាំត្រយូងចេក (ទ្រូងមាន់ / បង្គា)", price: "4.5", image: "mix-banana-leaf.png" },
+        { name: "ខាត់ណាទឹកភ្នែក", price: "4.5", image: "cut-na-tear.png" },
+        { name: "ងាវស្រស់", price: "4.5", image: "cockle-raw.png" },
+        { name: "អយស្ទ័រស្រស់", price: "6.0", image: "oyster-raw.png" },
+        { name: "សាលម៉ុនស្រស់", price: "8.0", image: "salmon-raw.png" },
+        { name: "បុកល្ហុងសាលម៉ុនស្រស់ (បង្គា / ក្ដាម / ក្ដាមប្រៃ)", price: "3.5 – 8.0", image: "papaya-salad-salmon.png" },
+        // { name: "បុកល្ហុងធំរុះ", price: "12.0" },
+        // { name: "សាច់គោហិរអង្រ្កងលីង", price: "4.0" },
+        // { name: "ជ្រក់ត្រចៀកជ្រូក", price: "4.5" },
+        // { name: "ជ្រក់ជើងទា", price: "4.5" },
+        // { name: "សាលម៉ុនទឹកស៊ីអ៊ីវ", price: "8.0" },
+        // { name: "បង្គាទឹកស៊ីអ៊ីវ", price: "4.5" },
+        // { name: "បុកពោត (បង្គា / ងាវ / ក្ដាមសេះ / សាលម៉ុន)", price: "4.5 – 8.0" },
+        // { name: "មាន់ត្រជាក់ស្ពៃខ្មៅ", price: "5.0" },
+        // { name: "ញាំសារាយសមុទ្រ", price: "5.0", isNew: true },
+        // { name: "ណាមថុកសាច់គោ", price: "4.5", isNew: true },
+        // { name: "មាន់ត្រជាក់ទឹកខ្មៅ", price: "5.0", isNew: true },
+      ]
+    },
+    {
+      category: "សាច់អាំង",
+      categoryEn: "Grilled",
+      items: [
+        { name: "ស្ទេក", price: "6.9", image: "steak.png" },
+        { name: "យីហ៊ីអាំង", price: "5.0", image: "squid-grill.png" },
+        { name: "ងៀតគោ", price: "5.0", image: "dried-beef.png" },
+        { name: "ងៀតក្របី", price: "5.0", image: "bafolo-dry-beef.png" },
+        { name: "អយស្ទ័រអាំងខ្ទឹមស", price: "6.0", image: "oyster-galic-grill.png" },
+        { name: "ត្រីសាបាក់អាំង", price: "4.5", image: "fish-sabak-grill.png" },
+        { name: "ឆ្អឹងជំនីជ្រូកអាំង", price: "3.5", image: "pork-rib-grill.png" },
+        { name: "សាច់គោអាំងទឹកប្រហុក", price: "5.0", image: "beef-grill-with-brohok.png" },
+        // { name: "កង្កែបអាំង", price: "4.0" },
+        // { name: "ព្រុយត្រីអាំង", price: "4.0" },
+        // { name: "អន្ទង់អាំងអំបិលម្ទេស", price: "5.0" },
+        // { name: "ខ្យងអាំងអំបិលម្ទេស", price: "4.5" },
+        // { name: "បង្គាអាំង", price: "4.5" },
+        // { name: "មឹកអាំង", price: "4.5" },
+        // { name: "សាច់ជ្រូកបីជាន់អាំងគីមឈី", price: "4.5", isNew: true },
+        // { name: "ពោះជ្រូកញាត់គល់ស្លឹកគ្រៃអាំង", price: "4.5", isNew: true },
+      ]
+    },
+    {
+      category: "អាហារសម្រន់",
+      categoryEn: "Snacks",
+      items: [
+        { name: "ផ្លែឈើចម្រុះ", price: "5.0", image: "mix-fruit.png" },
+        { name: "ដំឡូងបារាំង", price: "3.5", image: "french-fried.png" },
+        { name: "ស្វាយក្រឡុក", price: "2.5", image: "mango-mix.png" },
+        // { name: "ម្នាស់ក្រឡុក", price: "2.5" },
+        // { name: "សណ្ដែកជប៉ុន", price: "3.5" },
+        // { name: "តៅហ៊ូបំពង", price: "2.5" },
+        // { name: "ផ្សិតបូស", price: "3.5" },
+        // { name: "ញាំស្វាយបង្គាក្រៀម", price: "5.0" },
+        { name: "ញាំស្វាយត្រីឆ្អើរ", price: "5.0", image: "manga-mix-dry-fish.png" },
+      ]
+    },
+  ];
+
+  const placeholderIcon = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M7 3v6a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V3M9 11v10M17 3c-1.5 0-3 1.5-3 4.5S15.5 12 17 12s3-1.5 3-4.5S18.5 3 17 3zM17 12v9" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+
+  function slug(str){
+    return 'cat-' + str.replace(/[^a-zA-Z0-9\u1780-\u17FF]+/g, '-');
+  }
+
+  const navInner = document.getElementById('cat-nav-inner');
+  const main = document.getElementById('menu-main');
+
+  menu.forEach(cat => {
+    const id = slug(cat.categoryEn);
+
+    // nav pill
+    const pill = document.createElement('a');
+    pill.className = 'cat-pill khmer';
+    pill.href = '#' + id;
+    pill.textContent = cat.category;
+    navInner.appendChild(pill);
+
+    // section
+    const section = document.createElement('section');
+    section.className = 'category';
+    section.id = id;
+
+    section.innerHTML = `
+      <div class="cat-heading">
+        <span class="eyebrow">${cat.categoryEn}</span>
+        <h2 class="khmer">${cat.category}</h2>
+      </div>
+      <div class="grid"></div>
+    `;
+
+    const grid = section.querySelector('.grid');
+
+    cat.items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const imgSrc = item.image ? `assets/${item.image}` : '';
+
+      card.innerHTML = `
+        <div class="card-image">
+          <div class="placeholder">${placeholderIcon}</div>
+          ${imgSrc ? `<img src="${imgSrc}" alt="${item.name}" onerror="this.style.display='none'">` : ''}
+        </div>
+        <div class="card-body">
+          <h3 class="card-name khmer">${item.isNew ? '<span class="new-tag">NEW</span>' : ''}${item.name}</h3>
+          <span class="card-price">${item.price}$</span>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    main.appendChild(section);
+  });
+</script>
+
+</body>
+</html>
